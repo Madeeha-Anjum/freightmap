@@ -1,5 +1,5 @@
 const thorMissingError = (envvar: unknown) => {
-  throw new Error(`Env variable found, ${envvar}, but it is empty`);
+  throw new Error(`Missing env: ${envvar}, check your .env file`);
 };
 
 const ENV = {
