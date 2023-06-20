@@ -11,7 +11,7 @@ const Menu: React.FC<MenuInterface> = ({ children }) => {
 
   return (
     <>
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto bg-white">
         <section className="text-right sm:hidden">
           <button
             type="button"
