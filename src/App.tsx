@@ -19,6 +19,7 @@ function App() {
     // set map to the map instance
     mapInstance.current = map;
   };
+
   return (
     <>
       <div className="relative overflow-hidden">

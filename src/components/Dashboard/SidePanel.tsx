@@ -1,14 +1,14 @@
 import classnames from "classnames";
 import React from "react";
 import { MenuContext } from "../../providers/MenuProvider";
-import Icon from "../icons/Icon";
+import { Icon } from "../Icons/Icon";
 
 const SidePanel: React.FC = () => {
   const { isMenuOpen, setIsMenuOpen } = React.useContext(MenuContext);
 
   return (
     <>
-      <div className="absolute w-16 h-full bg-purple-300 rounded-l-3xl -left-16">
+      <div className="absolute w-16 h-full text-gray-700 bg-slate-50 backdrop-brightness-200 backdrop-blur-2xl rounded-l-3xl -left-16">
         <button
           title="Open Menu"
           className={classnames(

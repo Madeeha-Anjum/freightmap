@@ -15,7 +15,7 @@ type InterfaceMenuProvider = {
 };
 
 const MenuProvider: React.FC<InterfaceMenuProvider> = ({ children }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   return (
     <MenuContext.Provider value={{ isMenuOpen, setIsMenuOpen }}>

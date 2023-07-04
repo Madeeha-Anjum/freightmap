@@ -1,10 +1,10 @@
 import React from "react";
 
-type Interface = {
-  className: string;
-};
+interface CloseXInterface {
+  className?: string;
+}
 
-const CloseX: React.FC<Interface> = ({ className }) => {
+const CloseX: React.FC<CloseXInterface> = ({ className }) => {
   return (
     <svg
       fill="#131010"
@@ -18,4 +18,4 @@ const CloseX: React.FC<Interface> = ({ className }) => {
   );
 };
 
-export default CloseX;
+export { CloseX };

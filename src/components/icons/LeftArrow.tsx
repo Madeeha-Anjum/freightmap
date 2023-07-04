@@ -1,15 +1,16 @@
 import React from "react";
 
-type Props = {
-  className: string;
-};
+interface LeftArrowInterface {
+  className?: string;
+}
 
-const LeftArrow: React.FC<Props> = ({ className }) => {
+const LeftArrow: React.FC<LeftArrowInterface> = ({ className }) => {
   return (
     <>
       <svg
         viewBox="-3 0 32 32"
         version="1.1"
+        fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
         className={className}
       >
@@ -25,4 +26,4 @@ const LeftArrow: React.FC<Props> = ({ className }) => {
   );
 };
 
-export default LeftArrow;
+export { LeftArrow };
