@@ -4,14 +4,14 @@ interface TruckInterface {
   className?: string;
 }
 
-const Truck: React.FC<TruckInterface> = ({ className }) => {
+const Truck: React.FC<TruckInterface> = (props) => {
   return (
     <svg
-      fill="currentColor"
-      version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
       viewBox="0 0 612 612"
+      version="1.1"
+      fill="currentColor"
+      {...props}
     >
       <g>
         <g>
@@ -37,4 +37,4 @@ const Truck: React.FC<TruckInterface> = ({ className }) => {
   );
 };
 
-export { Truck };
+export default Truck;

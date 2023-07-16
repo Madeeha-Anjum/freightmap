@@ -4,14 +4,14 @@ interface ShipInterface {
   className?: string;
 }
 
-const Ship: React.FC<ShipInterface> = ({ className }) => {
+const Ship: React.FC<ShipInterface> = (props) => {
   return (
     <svg
-      fill="currentColor"
-      version="1.1"
-      className={className}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 490 490"
+      version="1.1"
+      fill="currentColor"
+      {...props}
     >
       <g>
         <path
@@ -63,4 +63,4 @@ const Ship: React.FC<ShipInterface> = ({ className }) => {
   );
 };
 
-export { Ship };
+export default Ship;

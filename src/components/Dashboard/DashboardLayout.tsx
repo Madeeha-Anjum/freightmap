@@ -2,12 +2,10 @@ import React from "react";
 import { MenuContext } from "../../providers/MenuProvider";
 import SidePanel from "./SidePanel";
 import classnames from "classnames";
+import { MenuLayout } from "../Menus/MenuLayout";
+import { Outlet } from "react-router-dom";
 
-type InterfaceMenuLayout = {
-  children: React.ReactNode;
-};
-
-const MenuLayout: React.FC<InterfaceMenuLayout> = ({ children }) => {
+const DashboardLayout: React.FC = () => {
   const { isMenuOpen } = React.useContext(MenuContext);
   return (
     <div
@@ -17,9 +15,12 @@ const MenuLayout: React.FC<InterfaceMenuLayout> = ({ children }) => {
       )}
     >
       <SidePanel />
-      {children}
+      <MenuLayout>
+        {/* setup browser navigation here  */}
+        <Outlet /> {/* Renders the component based on the current route */}
+      </MenuLayout>
     </div>
   );
 };
 
-export default MenuLayout;
+export default DashboardLayout;

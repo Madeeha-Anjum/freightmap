@@ -4,15 +4,15 @@ interface LeftArrowInterface {
   className?: string;
 }
 
-const LeftArrow: React.FC<LeftArrowInterface> = ({ className }) => {
+const LeftArrow: React.FC<LeftArrowInterface> = (props) => {
   return (
     <>
       <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="-3 0 32 32"
         version="1.1"
         fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-        className={className}
+        {...props}
       >
         <g id="SVGRepo_bgCarrier"></g>
         <g id="SVGRepo_tracerCarrier"></g>
@@ -26,4 +26,4 @@ const LeftArrow: React.FC<LeftArrowInterface> = ({ className }) => {
   );
 };
 
-export { LeftArrow };
+export default LeftArrow;
