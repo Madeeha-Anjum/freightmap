@@ -5,10 +5,31 @@ import { RouteSelectMenu } from "./components/Menus/RouteSelectMenu";
 import { RouteDrawMenu } from "./components/Menus/RouteDrawMenu";
 import RouteLegend from "./components/Menus/RouteLegend";
 import Login from "./components/Auth/Login";
+import Api from "./api";
+import RouteType from "./data/routes";
 
 function App() {
+  const callApi = async () => {
+    Api.getAllTracks().then((res) => {
+      console.log(res.data);
+    });
+  };
+  const callApiPost = async () => {
+    Api.createTrack({
+      route_type: RouteType.Air,
+      paths: [
+        { lat: 1, long: 2 },
+        { lat: 3, long: 4 },
+      ],
+    }).then((res) => {
+      console.log(res.data);
+    });
+  };
+
   return (
     <>
+      <button onClick={callApi}>Click me Good</button>
+      <button onClick={callApiPost}>Click me harder</button>
       <BrowserRouter>
         <Routes>
           <Route

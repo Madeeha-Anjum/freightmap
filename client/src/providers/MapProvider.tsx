@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useRef } from "react";
 import RouteType from "../data/routes";
+import Api, { Track } from "../api";
 
 type InterfaceMapContext = {
   mapInstance: React.MutableRefObject<google.maps.Map | null>;
@@ -30,6 +31,8 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   const [selectedRouteType, setSelectedRouteType] =
     React.useState<RouteType | null>(null);
 
+  const [allTracks, setAllTracks] = React.useState<Track[]>([]);
+
   const trackRef = useRef<{
     markers: google.maps.Marker[];
     polyline: google.maps.Polyline | null;
@@ -40,7 +43,54 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
 
   useEffect(() => {
     // load map from database and draw it
+    Api.getAllTracks().then((tracks) => {
+      if (tracks) {
+        setAllTracks(tracks);
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    // parse all tracks
+    // built out all the polylines and markers
+    // draw them on the map
+
+    if (!allTracks) {
+      return;
+    }
+
+    allTracks.forEach((track) => {
+      const poly = new google.maps.Polyline({
+        strokeColor: routeTypeColor[track.routeType],
+        strokeOpacity: 1.0,
+        strokeWeight: 15,
+      });
+
+      const path = poly.getPath();
+
+      track.paths.forEach((point) => {
+        path.push(new google.maps.LatLng(point.lat, point.long));
+      });
+
+      poly.setMap(mapInstance.current);
+
+      // add markers
+      track.paths.forEach((point) => {
+        const newMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(point.lat, point.long),
+          title: "#" + 1,
+        });
+
+        newMarker.setMap(mapInstance.current);
+
+        newMarker.addListener("click", () => {
+          new google.maps.InfoWindow({
+            content: "Hello World!",
+          }).open(mapInstance.current, newMarker);
+        });
+      });
+    });
+  }, [allTracks]);
 
   // const polyRef = useRef<google.maps.Polyline | null>(null);
 

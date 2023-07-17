@@ -3,13 +3,13 @@
 1. setup the virtual environment
 
    ```bash
-   python -m venv venv
+   python -m venv .venv
    ```
 
 2. Activate the virtual environment
 
    ```bash
-      source venv/Scripts/activate
+      source .venv/Scripts/activate
    ```
 
 3. Install the requirements
