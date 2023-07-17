@@ -38,6 +38,10 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     polyline: null,
   });
 
+  useEffect(() => {
+    // load map from database and draw it
+  }, []);
+
   // const polyRef = useRef<google.maps.Polyline | null>(null);
 
   const createPoly = () => {
@@ -108,6 +112,8 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   const onEndDrawClick = () => {
     trackRef.current.polyline = null;
     trackRef.current.markers = [];
+
+    // save current track to database
   };
 
   const onResetDrawClick = () => {

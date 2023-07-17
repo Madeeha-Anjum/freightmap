@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "../Icons/Icon";
+import Icon from "../Icons/Icon";
 import { MenuContext } from "../../providers/MenuProvider";
 
 interface MenuLayoutInterface {
@@ -30,4 +30,4 @@ const MenuLayout: React.FC<MenuLayoutInterface> = ({ children }) => {
   );
 };
 
-export { MenuLayout };
+export default MenuLayout;

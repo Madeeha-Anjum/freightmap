@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Icon } from "../Icons/Icon";
-import { IconButton } from "../ui/IconButton";
-import { Button } from "../ui/Button";
+import Icon from "../Icons/Icon";
+import IconButton from "../ui/IconButton";
+import Button from "../ui/Button";
 
 const RouteLegend = () => {
   // TODO default all routes to be selected in checkbox

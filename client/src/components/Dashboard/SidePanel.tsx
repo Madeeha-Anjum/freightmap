@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import React from "react";
 import { MenuContext } from "../../providers/MenuProvider";
-import { Icon } from "../Icons/Icon";
+import Icon from "../Icons/Icon";
 
 const SidePanel: React.FC = () => {
   const { isMenuOpen, setIsMenuOpen } = React.useContext(MenuContext);

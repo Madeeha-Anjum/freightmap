@@ -2,7 +2,7 @@ import React from "react";
 import { MenuContext } from "../../providers/MenuProvider";
 import SidePanel from "./SidePanel";
 import classnames from "classnames";
-import { MenuLayout } from "../Menus/MenuLayout";
+import MenuLayout from "../Menus/MenuLayout";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout: React.FC = () => {
