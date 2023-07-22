@@ -59,6 +59,7 @@ class Track(BaseModel):
 async def create_new_track(track: Track):
     """Add new path"""
     print(track.dict())
+    print(track.dict())
     new_track = {"id": uuid.uuid4(), **track.dict()}
 
     tracks.append(new_track)
