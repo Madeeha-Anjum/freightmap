@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MapContext } from "../../providers/MapProvider";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Button from "../ui/Button";
 import Icon from "../Icons/Icon";
@@ -53,6 +53,7 @@ const RouteDrawMenu = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     onEndDrawClick();
+    console.log("Here is the route: ", e);
     navigate("/select-route");
     // console.log("save", e);
     // console.log("Here is the route: ", route);
