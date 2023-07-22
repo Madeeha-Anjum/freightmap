@@ -11,12 +11,12 @@ import RouteType from "./data/routes";
 function App() {
   const callApi = async () => {
     Api.getAllTracks().then((res) => {
-      console.log(res.data);
+      console.log(res);
     });
   };
   const callApiPost = async () => {
     Api.createTrack({
-      route_type: RouteType.Air,
+      routeType: RouteType.Air,
       paths: [
         { lat: 1, long: 2 },
         { lat: 3, long: 4 },
