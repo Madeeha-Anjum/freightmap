@@ -41,6 +41,30 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     polyline: null,
   });
 
+  const iconBase = window.location.origin + "/assets/icons/";
+  const icons: Record<string, { icon: string }> = {
+    Sea: {
+      icon: iconBase + "sea.svg",
+    },
+    Air: {
+      icon: iconBase + "air.svg",
+    },
+    Ground: {
+      icon: iconBase + "ground.svg",
+    },
+  };
+
+  const getIcon = (routeType: RouteType) => {
+    switch (routeType) {
+      case RouteType.Air:
+        return icons.Air.icon;
+      case RouteType.Sea:
+        return icons.Sea.icon;
+      case RouteType.Ground:
+        return icons.Ground.icon;
+    }
+  };
+
   useEffect(() => {
     // load map from database and draw it
     Api.getAllTracks().then((tracks) => {
@@ -63,7 +87,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
       const poly = new google.maps.Polyline({
         strokeColor: routeTypeColor[track.routeType],
         strokeOpacity: 1.0,
-        strokeWeight: 15,
+        strokeWeight: 5,
       });
 
       const path = poly.getPath();
@@ -79,6 +103,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
         const newMarker = new google.maps.Marker({
           position: new google.maps.LatLng(point.lat, point.long),
           title: "#" + 1,
+          icon: getIcon(track.routeType),
         });
 
         newMarker.setMap(mapInstance.current);
@@ -90,7 +115,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
         });
       });
     });
-  }, [allTracks]);
+  }, [allTracks, getIcon]);
 
   // const polyRef = useRef<google.maps.Polyline | null>(null);
 
@@ -98,7 +123,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     const poly = new google.maps.Polyline({
       strokeColor: routeTypeColor[selectedRouteType || RouteType.Air],
       strokeOpacity: 1.0,
-      strokeWeight: 15,
+      strokeWeight: 5,
     });
 
     trackRef.current.polyline = poly;
@@ -107,11 +132,14 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   };
 
   const createMarker = (latLng: google.maps.LatLng) => {
+    if (selectedRouteType == null) return;
+
+    console.log("Here is the latlon", latLng.lat(), latLng.lng());
     const newMarker = new google.maps.Marker({
       position: latLng,
       title: "#" + 1,
+      icon: getIcon(selectedRouteType),
     });
-
     trackRef.current.markers.push(newMarker);
 
     newMarker.setMap(mapInstance.current);
@@ -132,30 +160,16 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     path?.push(event.latLng as google.maps.LatLng);
   };
 
-  // const drawPolys = (pollys: google.maps.LatLng[]) => {
-  //   createPoly();
-  //   const path = polyRef.current?.getPath();
-  //   pollys.forEach((polly) => {
-  //     path?.push(polly);
-  //   });
-  //   pollys.forEach((polly) => {
-  //     createMarker(polly);
-  //   });
-
-  //   polyRef.current?.setMap(mapInstance.current);
-
-  //   // clear the polyRef so that we can start a new path
-  //   polyRef.current = null;
-  // };
-
   const onMapClick = (event: google.maps.MapMouseEvent) => {
     if (trackRef.current.polyline == null) return;
+    if (selectedRouteType == null) return;
 
     createMarker(event.latLng as google.maps.LatLng);
     appendPoly(event);
   };
 
   const onStartDrawClick = () => {
+    console.log("Here we start drawing");
     createPoly();
   };
 
@@ -177,6 +191,9 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     // reset track
     trackRef.current.polyline = null;
     trackRef.current.markers = [];
+
+    // start drawing again
+    if (selectedRouteType) onStartDrawClick();
   };
 
   return (

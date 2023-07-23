@@ -4,9 +4,9 @@ import Home from "./Home";
 import LeftArrow from "./LeftArrow";
 import OpenEye from "./OpenEye";
 import Pen from "./Pen";
-import Plane from "./Plane";
-import Ship from "./Ship";
-import Truck from "./Truck";
+import Plane from "./Air";
+import Ship from "./Sea";
+import Truck from "./Ground";
 
 const Icon = {
   LeftArrow: LeftArrow,
