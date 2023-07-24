@@ -117,8 +117,6 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     });
   }, [allTracks, getIcon]);
 
-  // const polyRef = useRef<google.maps.Polyline | null>(null);
-
   const createPoly = () => {
     const poly = new google.maps.Polyline({
       strokeColor: routeTypeColor[selectedRouteType || RouteType.Air],
@@ -134,7 +132,6 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   const createMarker = (latLng: google.maps.LatLng) => {
     if (selectedRouteType == null) return;
 
-    console.log("Here is the latlon", latLng.lat(), latLng.lng());
     const newMarker = new google.maps.Marker({
       position: latLng,
       title: "#" + 1,
@@ -162,14 +159,12 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
 
   const onMapClick = (event: google.maps.MapMouseEvent) => {
     if (trackRef.current.polyline == null) return;
-    if (selectedRouteType == null) return;
-
     createMarker(event.latLng as google.maps.LatLng);
     appendPoly(event);
   };
 
   const onStartDrawClick = () => {
-    console.log("Here we start drawing");
+    if (selectedRouteType == null) return;
     createPoly();
   };
 
@@ -193,7 +188,8 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     trackRef.current.markers = [];
 
     // start drawing again
-    if (selectedRouteType) onStartDrawClick();
+    if (selectedRouteType == null) return;
+    onStartDrawClick();
   };
 
   return (

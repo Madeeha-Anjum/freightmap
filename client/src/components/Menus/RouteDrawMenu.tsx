@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import { MapContext } from "../../providers/MapProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,8 @@ const RouteDrawMenu = () => {
   useEffect(() => {
     if (selectedRouteType === null) navigate("/");
     setIsMenuOpen(false);
-  }, [selectedRouteType, navigate]);
+    onResetDrawClick();
+  }, [selectedRouteType, navigate, setIsMenuOpen, onResetDrawClick]);
 
   const handleOnSaveClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -44,9 +45,7 @@ const RouteDrawMenu = () => {
         <Button onClick={() => onResetDrawClick()}>Restart</Button>
         <Button
           onClick={() => {
-            onResetDrawClick();
             setSelectedRouteType(null);
-            navigate("/");
           }}
         >
           Cancel
