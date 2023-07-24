@@ -5,9 +5,8 @@ const mapConfig = {
   // Center coordinates of Canada
   center: { lat: 51.45933642065146, lng: -101.45584239737815 },
   zoom: 4,
-  maxZoom: 15,
+  minZoom: 4, // min zoom level
 };
-
 const MapLoader: React.FC = () => {
   const refElement = useRef<HTMLDivElement>(null);
   const { mapInstance, onMapClick } = React.useContext(MapContext);
