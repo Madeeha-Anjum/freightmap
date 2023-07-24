@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import { MapContext } from "../../providers/MapProvider";
 import { useNavigate } from "react-router-dom";
 
