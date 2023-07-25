@@ -19,12 +19,12 @@ const RouteDrawMenu = () => {
 
   useEffect(() => {
     if (selectedRouteType === null) navigate("/");
-    setIsMenuOpen(false);
   }, [selectedRouteType, navigate, setIsMenuOpen]);
 
   return (
     <div className="flex flex-col items-center h-full ">
       <section className="flex flex-col items-center justify-center flex-grow space-y-12">
+        <div>Start drawing!</div>
         <Button
           onClick={() => {
             onEndDrawClick();
