@@ -8,6 +8,7 @@ type InterfaceMapContext = {
   onStartDrawClick: () => void;
   onEndDrawClick: () => void;
   onResetDrawClick: () => void;
+  onCancelDrawClick: () => void;
   selectedRouteType: RouteType | null;
   setSelectedRouteType: React.Dispatch<React.SetStateAction<RouteType | null>>;
 };
@@ -26,6 +27,19 @@ const routeTypeColor = {
   [RouteType.Sea]: "#00FF00",
 };
 
+const iconBase = window.location.origin + "/assets/icons/";
+const icons: Record<string, { icon: string }> = {
+  Sea: {
+    icon: iconBase + "sea.svg",
+  },
+  Air: {
+    icon: iconBase + "air.svg",
+  },
+  Ground: {
+    icon: iconBase + "ground.svg",
+  },
+};
+
 const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   const mapInstance = useRef<google.maps.Map | null>(null);
   const [selectedRouteType, setSelectedRouteType] =
@@ -41,20 +55,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     polyline: null,
   });
 
-  const iconBase = window.location.origin + "/assets/icons/";
-  const icons: Record<string, { icon: string }> = {
-    Sea: {
-      icon: iconBase + "sea.svg",
-    },
-    Air: {
-      icon: iconBase + "air.svg",
-    },
-    Ground: {
-      icon: iconBase + "ground.svg",
-    },
-  };
-
-  const getIcon = (routeType: RouteType) => {
+  const getSelectedIcon = (routeType: RouteType) => {
     switch (routeType) {
       case RouteType.Air:
         return icons.Air.icon;
@@ -103,21 +104,23 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
         const newMarker = new google.maps.Marker({
           position: new google.maps.LatLng(point.lat, point.long),
           title: "#" + 1,
-          icon: getIcon(track.routeType),
+          icon: getSelectedIcon(track.routeType),
         });
 
         newMarker.setMap(mapInstance.current);
 
         newMarker.addListener("click", () => {
           new google.maps.InfoWindow({
-            content: "Hello World!",
+            content: "Description",
           }).open(mapInstance.current, newMarker);
         });
       });
     });
-  }, [allTracks, getIcon]);
+  }, [allTracks]);
 
   const createPoly = () => {
+    if (selectedRouteType == null) return;
+
     const poly = new google.maps.Polyline({
       strokeColor: routeTypeColor[selectedRouteType || RouteType.Air],
       strokeOpacity: 1.0,
@@ -131,11 +134,12 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
 
   const createMarker = (latLng: google.maps.LatLng) => {
     if (selectedRouteType == null) return;
-
+    console.log("Here is the icon", getSelectedIcon(selectedRouteType));
+    console.log("Here why this get called 2 tiems ");
     const newMarker = new google.maps.Marker({
       position: latLng,
       title: "#" + 1,
-      icon: getIcon(selectedRouteType),
+      icon: getSelectedIcon(selectedRouteType),
     });
     trackRef.current.markers.push(newMarker);
 
@@ -158,19 +162,20 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
   };
 
   const onMapClick = (event: google.maps.MapMouseEvent) => {
+    console.log("Here clicked");
     if (trackRef.current.polyline == null) return;
     createMarker(event.latLng as google.maps.LatLng);
     appendPoly(event);
   };
 
   const onStartDrawClick = () => {
-    if (selectedRouteType == null) return;
     createPoly();
   };
 
   const onEndDrawClick = () => {
     trackRef.current.polyline = null;
     trackRef.current.markers = [];
+    setSelectedRouteType(null);
 
     // save current track to database
   };
@@ -187,9 +192,22 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
     trackRef.current.polyline = null;
     trackRef.current.markers = [];
 
-    // start drawing again
-    if (selectedRouteType == null) return;
-    onStartDrawClick();
+    createPoly();
+  };
+
+  const onCancelDrawClick = () => {
+    trackRef.current.polyline?.setMap(null);
+
+    // clear all markers
+    trackRef.current.markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+
+    // reset track
+    trackRef.current.polyline = null;
+    trackRef.current.markers = [];
+
+    setSelectedRouteType(null);
   };
 
   return (
@@ -200,6 +218,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
         onStartDrawClick,
         onEndDrawClick,
         onResetDrawClick,
+        onCancelDrawClick,
         selectedRouteType,
         setSelectedRouteType,
       }}

@@ -14,30 +14,20 @@ const RouteDrawMenu = () => {
     onEndDrawClick,
     onResetDrawClick,
     selectedRouteType,
-    setSelectedRouteType,
+    onCancelDrawClick,
   } = React.useContext(MapContext);
 
   useEffect(() => {
     if (selectedRouteType === null) navigate("/");
     setIsMenuOpen(false);
-    onResetDrawClick();
-  }, [selectedRouteType, navigate, setIsMenuOpen, onResetDrawClick]);
-
-  const handleOnSaveClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    onEndDrawClick();
-    console.log("Here is the route: ", e);
-    setSelectedRouteType(null);
-    navigate("/");
-  };
+  }, [selectedRouteType, navigate, setIsMenuOpen]);
 
   return (
     <div className="flex flex-col items-center h-full ">
       <section className="flex flex-col items-center justify-center flex-grow space-y-12">
         <Button
-          onClick={(e) => {
-            handleOnSaveClick(e);
+          onClick={() => {
+            onEndDrawClick();
           }}
         >
           Save
@@ -45,7 +35,7 @@ const RouteDrawMenu = () => {
         <Button onClick={() => onResetDrawClick()}>Restart</Button>
         <Button
           onClick={() => {
-            setSelectedRouteType(null);
+            onCancelDrawClick();
           }}
         >
           Cancel

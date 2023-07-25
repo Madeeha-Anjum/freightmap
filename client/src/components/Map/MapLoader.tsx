@@ -21,13 +21,16 @@ const MapLoader: React.FC = () => {
     }
 
     map.setOptions(mapConfig);
+
     // set map instance
     mapInstance.current = map;
   }, [mapInstance]);
 
   useEffect(() => {
     if (!mapInstance.current) return;
-    // add event listener
+    // clear all listeners
+    google.maps.event.clearListeners(mapInstance.current, "click");
+    // add new listener
     mapInstance.current.addListener("click", onMapClick);
   }, [mapInstance, onMapClick]);
 
