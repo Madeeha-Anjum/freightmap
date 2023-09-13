@@ -1,10 +1,12 @@
 import classnames from "classnames";
 import React from "react";
 
+type button = "button" | "submit" | "reset";
+
 interface ButtonInterface {
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  type?: "button" | "submit" | "reset";
+  type?: button;
   title?: string;
   children?: React.ReactNode;
   kind?: "primary" | "secondary";

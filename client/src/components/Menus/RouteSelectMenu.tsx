@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IconButton from "../ui/IconButton";
 import classnames from "classnames";
 import Icon from "../Icons/Icon";
-import { Link } from "react-router-dom";
-import Button from "../ui/Button";
+// import { Link } from "react-router-dom";
+// import Button from "../ui/Button";
 import RouteType from "../../data/routes";
 import { MapContext } from "../../providers/MapProvider";
+import { useNavigate } from "react-router-dom";
 
 const RouteSelectMenu = () => {
+  const navigate = useNavigate();
   const { selectedRouteType, setSelectedRouteType, onStartDrawClick } =
     React.useContext(MapContext);
 
@@ -15,14 +17,16 @@ const RouteSelectMenu = () => {
     setSelectedRouteType(route);
   };
 
+  useEffect(() => {
+    if (selectedRouteType != null) navigate("/draw-route");
+    onStartDrawClick();
+  }, [selectedRouteType, navigate, onStartDrawClick]);
+
   return (
     <>
-      <div className="flex flex-col items-center h-full ">
-        <Link to="/">
-          <Icon.Home className="w-10 text-white"></Icon.Home>
-        </Link>
+      <div className="flex flex-col items-center h-full -mt-8 ">
         <section className="flex flex-col justify-center flex-grow space-y-12">
-          <div className="text-xl ">What route do you want to draw ?</div>
+          <div className="text-xl"> Select a route to draw ?</div>
           <div className="flex justify-center space-x-9">
             <IconButton
               onClick={() => handleRouteSelection(RouteType.Ground)}
@@ -65,7 +69,7 @@ const RouteSelectMenu = () => {
             </IconButton>
           </div>
         </section>
-        <Link to="/draw-route">
+        {/* <Link to="/draw-route">
           <Button
             className={classnames("invisible  !mb-24", {
               "!visible": selectedRouteType !== null,
@@ -78,7 +82,7 @@ const RouteSelectMenu = () => {
               <Icon.Pen className="w-5 h-5"></Icon.Pen>
             </span>
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </>
   );

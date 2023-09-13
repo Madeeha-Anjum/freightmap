@@ -10,7 +10,7 @@ const RouteLegend = () => {
     <>
       <div className="flex flex-col items-center h-full ">
         <section className="flex flex-col items-center justify-center flex-grow space-y-12">
-          <div className="text-xl">What routes do you want to see ?</div>
+          <div className="text-xl">Select the route you want to draw</div>
           {/* TODO convert to input type checkbox  */}
 
           <div className="flex p-2 space-x-9 bg-white/30 backdrop-blur-2xl rounded-2xl hover:cursor-pointer">
