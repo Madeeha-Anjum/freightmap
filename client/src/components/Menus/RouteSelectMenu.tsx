@@ -26,7 +26,7 @@ const RouteSelectMenu = () => {
     <>
       <div className="flex flex-col items-center h-full -mt-8 ">
         <section className="flex flex-col justify-center flex-grow space-y-12">
-          <div className="text-xl ">What route do you want to draw ?</div>
+          <div className="text-xl"> Select a route to draw ?</div>
           <div className="flex justify-center space-x-9">
             <IconButton
               onClick={() => handleRouteSelection(RouteType.Ground)}

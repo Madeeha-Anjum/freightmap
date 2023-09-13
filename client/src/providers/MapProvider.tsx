@@ -111,7 +111,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
 
         newMarker.addListener("click", () => {
           new google.maps.InfoWindow({
-            content: "Description",
+            content: track.description,
           }).open(mapInstance.current, newMarker);
         });
       });
@@ -147,7 +147,7 @@ const MapProvider: React.FC<InterfaceMapProvider> = ({ children }) => {
 
     newMarker.addListener("click", () => {
       new google.maps.InfoWindow({
-        content: "Hello World!",
+        content: "Description from X to Z via Y",
       }).open(mapInstance.current, newMarker);
     });
   };
