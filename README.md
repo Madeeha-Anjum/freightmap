@@ -15,9 +15,9 @@
 
 ## :star2: Project Purpose and Objectives
 
-The main goal of this project is to create a simple and easy to use time tracking application using Google Sheets to store all the data. This is aimed to managers who want to track their employees' time.
+The main goal of this project is to create a simple and easy to use map with routes for trucking, shipping and flying. This is aimed to managers who want to teach their employees' about the shipping routes used.
 
-This is the backend of the application. It is a REST API that is used to communicate with the Google Sheets API. You can find the frontend [here](https://github.com/Madeeha-Anjum/timeey-time-client). This project is built on NodeJS using the ExpressJS framework.
+This is the front end applicaiton. This project is built on ReactJS.
 
 ## :chart_with_upwards_trend: Future Plans
 
